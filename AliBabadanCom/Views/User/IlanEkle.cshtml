@@ -1,0 +1,185 @@
+﻿@model Entity.ViewModel.IlanEkleViewModel
+
+@{
+    ViewBag.Title = "IlanEkle";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>IlanEkle</h2>
+
+
+@using (Html.BeginForm("IlanEkle", "User", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>IlanEkleViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Garanti, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Garanti)
+                @Html.ValidationMessageFor(model => model.Garanti, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ColorId, new SelectList(ViewBag.Color, "Id", "Name"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.KategoriId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.KategoriId, new SelectList(ViewBag.Kategori, "Id", "Name"), new { @class = "form-control", name = "kategori", id = "kategori" })
+            @Html.ValidationMessageFor(model => model.KategoriId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("AltKategori :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.DropDownList("AltkategoriId", new SelectList(ViewBag.AltKategori, "Id", "Name"), new { @class = "form-control", name = "altkategori", id = "altkategori", @disabled = "disabled" })
+            @Html.ValidationMessageFor(model => model.AltKategoriId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Marka :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.DropDownList("MarkaId", new SelectList(ViewBag.Marka, "Id", "Name"), new { @class = "form-control", name = "marka", id = "marka", @disabled = "disabled" })
+            @Html.ValidationMessageFor(model => model.MarkaId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Model :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.DropDownList("ModelId", new SelectList(ViewBag.Model, "Id", "Name"), new { @class = "form-control", name = "model", id = "model", @disabled = "disabled" })
+            @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.PictureUpload, new { type = "file", name = "PictureUpload", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Image1, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.PictureUpload, new { type = "file", name = "PictureUpload", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Image2, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image3, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.PictureUpload, new { type = "file", name = "PictureUpload", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Image3, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#kategori').on('change', function () {
+            var kategoriID = $('#kategori option:selected').val();
+            console.log(kategoriID);
+            $.ajax({
+                type: 'GET',
+                data: { kategoriID: kategoriID },
+                url: '@Url.Action("loadAltKategori", "User")',
+                success: function (result) {
+                    $("#altkategori").removeAttr("disabled");
+                    var x = '<option value="-1">Alt kategoriyi seçiniz</option>';
+                    for (var i = 0; i < result.length; ++i) {
+                        x += '<option value="' + result[i].id + '">' + result[i].Name
+                            + '</option>';
+                    }
+                    $('#altkategori').html(x);
+
+                }
+            });
+        });
+        $('#altkategori').on('change', function () {
+            var altkategoriID = $('#altkategori option:selected').val();
+            $.ajax({
+
+                type: 'GET',
+                data: { altkategoriID: altkategoriID },
+                url: '@Url.Action("loadMarka", "User")',
+                success: function (result) {
+                    $("#marka").removeAttr("disabled");
+                    var x = '<option value="-1">Marka seçiniz</option>';
+                    for (var i = 0; i < result.length; ++i) {
+                        x += '<option value="' + result[i].id + '">' + result[i].Name
+                            + '</option>';
+                    }
+                    $('#marka').html(x);
+
+                }
+            });
+        });
+    });
+
+    $('#marka').on('change', function () {
+        var markaID = $('#marka option:selected').val();
+            $.ajax({
+                type: 'GET',
+                data: { markaID: markaID },
+                url: '@Url.Action("loadModel", "User")',
+                success: function (result) {
+                    $("#model").removeAttr("disabled");
+                    var x = '<option value="-1">Marka seçiniz</option>';
+                    for (var i = 0; i < result.length; ++i) {
+                        x += '<option value="' + result[i].id + '">' + result[i].Name
+                            + '</option>';
+                    }
+                    $('#model').html(x);
+
+                }
+            });
+        });
+
+    //CKEDITOR.replace("Description", {
+    //        uiColor: '#fc7f7f'
+    //    });
+</script>
